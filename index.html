@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Simple Iptables Script Generator</title>
+<title>iptables.js</title>
 <style type="text/css">
 .orange { color: #FF9900; }
 .block { background-color:#E1E1E1; margin-left: 1em; padding: 0.5em; border:solid 1px #BBBBBB }
@@ -12,14 +12,14 @@
 .command { font-family:"Courier New", Courier, mono; }
 #wrapper { width: 600px; background-color:#FFFFFF; margin: 0 auto; padding: 2em; border:solid 1px #CCCCCC; }
 BODY {font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; font-size:12px; background-color:#F4F4F4; }
-</style>
+</style> 
 <script type="text/javascript" src="iptables.js"></script>
 </head>
 <body>
 <div id="wrapper">
 <h1 style="text-align:center">iptables.js</h1>
 <form id="form" name="form" method="post" onsubmit="return generateIPTables()">
-  <p class="desc">This script is a basic iptables rule generator in javascript. I wrote this for two reasons: 1) To teach myself javascript 2) Because all iptables generator scripts tend to be written in a server-side language. lame.</p>
+  <p class="desc">A simple iptables rule generator written in JavaScript. I wrote this for two reasons: 1) To teach myself JavaScript 2) Because all iptables generator scripts tend to be written in a server-side language, such as PHP. </p>
   <p class="rules" id="ruleset"> Your ruleset will appear here </p>
   <p><b>General Options</b></p>
   <p class="block">
@@ -74,6 +74,7 @@ Traceroute (Time Exceeded)</label>
     </label>
   </p>
 </form>
+<div align="right" style="padding-top:0.2em">Original HTML/CSS forked from: <a href="http://www.mista.nu/iptables/"> http://www.mista.nu/iptables/</a></div>
 </div>
 </body>
 </html>

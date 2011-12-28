@@ -6,13 +6,17 @@
  */
 
 function generateIPTables() {
+	function setDefaultPolicy(chain) {
+		rulesetId.appendChild(document.createElement("p"));
+		rulesetId.appendChild(document.createTextNode("-P " + chain + " DROP"));
+	}
+	
 	function getRulesetId() {
 		return document.getElementById("ruleset");
 	}
 	
 	function evaluateCheckbox(checkboxName, outputText) {
 		if (document.form.elements[checkboxName].checked) {
-		    var rulesetId = getRulesetId();	
 		    rulesetId.appendChild(document.createElement("p"));
 		    rulesetId.appendChild(document.createTextNode(outputText));
 		}
@@ -21,19 +25,28 @@ function generateIPTables() {
     if (document.form.elements["isRedHat"].checked) {
 	    input = "RH-Firewall-1-INPUT";
 	    output = "RH-Firewall-1-OUTPUT";
+	    forward = "RH-Firewall-1-FORWARD";
 	}
 	else {
 		input = "INPUT";
 		output = "OUTPUT";
+		forward = "FORWARD";
 	}
 
     // Make way for the firewall rules
     var rulesetId = getRulesetId();	
 	rulesetId.innerHTML="";
 	
+	// Set default Policies (DROP)
+    setDefaultPolicy(input);
+    setDefaultPolicy(output);
+    setDefaultPolicy(forward);
+
 	cidr = document.form.elements["network"].value;
 		
 	evaluateCheckbox("loopback", "-A " + input + " -i lo -j ACCEPT");
+	evaluateCheckbox("outgoing", "-I " + output + " 1 -m state --state RELATED,ESTABLISHED -j ACCEPT");
+	evaluateCheckbox("outgoing", "-A " + output + " -p udp --dport 53 -m state --state NEW -j ACCEPT");
 	evaluateCheckbox("outgoing", "-A " + output + " -o lo -j ACCEPT");
 	evaluateCheckbox("tcp_21", "-A " + input + " -p tcp --dport 21 -m state --state NEW -s " + cidr + " -j ACCEPT");
 	evaluateCheckbox("tcp_22", "-A " + input + " -p tcp --dport 22 -m state --state NEW -s " + cidr + " -j ACCEPT");
