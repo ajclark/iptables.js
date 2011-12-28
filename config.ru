@@ -1,6 +1,6 @@
 use Rack::Static, 
   :root => "public"
-  :urls => ["/iptables.js"],
+  :urls => ["/js"],
 
 run lambda { |env|
   [
