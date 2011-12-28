@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>iptables.js</title>
+<style type="text/css">
+.orange { color: #FF9900; }
+.block { background-color:#E1E1E1; margin-left: 1em; padding: 0.5em; border:solid 1px #BBBBBB }
+.block2 { padding-left: 2em; }
+.desc { background-color:#E9F3F5; margin-left: 1em; padding: 0.5em; border:solid 1px #C0D8DC;  }
+.rules { background-color:#FFCCCC; margin-left: 1em; padding: 0.5em; border:solid 1px #C0D8DC;  }
+.command { font-family:"Courier New", Courier, mono; }
+#wrapper { width: 600px; background-color:#FFFFFF; margin: 0 auto; padding: 2em; border:solid 1px #CCCCCC; }
+BODY {font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; font-size:12px; background-color:#F4F4F4; }
+</style> 
+<script type="text/javascript" src="js/iptables.js"></script>
+</head>
+<body>
+<div id="wrapper">
+	<a href="http://github.com/ajclark/iptables.js"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub"></a>
+<h1 style="text-align:center">iptables.js</h1>
+<form id="form" name="form" method="post" onsubmit="return generateIPTables()">
+  <p class="desc">A simple iptables rule generator written in JavaScript. I wrote this for two reasons: 1) To teach myself JavaScript 2) Because all iptables generator scripts tend to be written in a server-side language, such as PHP. </p>
+  <p class="rules" id="ruleset"> Your ruleset will appear here </p>
+  <p><b>General Options</b></p>
+  <p class="block">
+	<label>
+	<input type="checkbox" name="isRedHat" value="checkbox" />
+	Is this a RedHat / CentOS server?</label>
+	<br />
+    <label>
+    <input type="checkbox" name="loopback" value="checkbox" checked="checked" />
+    Allow traffic to/from loopback device</label>
+    <br />
+    <label>
+    <input type="checkbox" name="outgoing" value="checkbox" checked="checked" />
+    Block outgoing traffic (does not affect established sessions and DNS queries)</label>
+  </p>
+  <p class="block2">Usually, anything arriving or exiting on a loopback interface should be allowed. This is because local applications sometimes bounce data to each other using the TCP/IP stack via loopback.</p>
+  <p><b>Accept Inbound Traffic</b></p>
+  <p class="block">
+    <label><input type="checkbox" name="tcp_21" value="21" /> FTP (21)</label>
+	<label><input type="checkbox" name="tcp_22" value="22" /> SSH (22)</label>
+    <label><input type="checkbox" name="tcp_25" value="25" /> SMTP (25) </label>	
+    <label><input type="checkbox" name="tcp_80" value="80" /> HTTP (80) </label>
+    <label><input type="checkbox" name="tcp_110" value="110" /> POP3 (110) </label>
+    <label><input type="checkbox" name="udp_123" value="123" /> NTP (123) </label>
+    <label><input type="checkbox" name="udp_67" value="67" /> DHCP (67) </label>
+    <br />
+    <label><input type="checkbox" name="udp_53" value="53" /> DNS (53) </label>
+  </p>
+  <p class="block2">By default, all inbound traffic is blocked. Thus, select the services your want the outside world to have access to on your host.</p>
+  <p><b>Accept Inbound ICMP Messages </b></p>
+  <p class="block">
+    <label>
+    <input type="checkbox" name="icmp_8" value="8" />
+Ping (echo-request)</label>
+    <label>
+    <input type="checkbox" name="icmp_11" value="11" />
+Traceroute (Time Exceeded)</label>
+  </p>
+  <p class="block2">ICMP (Internet Control Message Protocol) messages are used to report error conditions and controlling connections to your server. If you wish your host to be able to respond to <span class="command">ping</span> or <span class="command">traceroute</span>, enable the options above.</p>
+  
+  <p><b>Restrict Inbound Client Access </b></p>
+  <p class="block">
+  <label>
+  <input type="text" name="network" value="0.0.0.0/0" />
+  Allowed network</label>
+  </p>
+  <p class="block2">By default, <code>0.0.0.0/0</code> will allow anyone to access the available services. In order to only allow private LAN clients, set this value to <code>10.0.0.0/24</code> or similar.</p>
+  
+  <p>
+    <label>
+    <input type="submit" name="Submit" value="Generate" />
+    </label>
+  </p>
+</form>
+<div align="right" style="padding-top:0.2em">Original HTML/CSS forked from: <a href="http://www.mista.nu/iptables/"> http://www.mista.nu/iptables/</a></div>
+</div>
+</body>
+</html>
