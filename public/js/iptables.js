@@ -1,7 +1,7 @@
 /*
-* iptables.js - A seasonal holiday hack by Allan Clark
-* Fork me on github: 
-* http://github.com/ajclark/iptables.js
+*	iptables.js - A seasonal holiday hack by Allan Clark
+*	Fork me on github: 
+*	http://github.com/ajclark/iptables.js
 *
 */
 
