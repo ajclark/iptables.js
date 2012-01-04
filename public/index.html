@@ -49,7 +49,20 @@ BODY {font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; font-si
     <br />
     <label><input type="checkbox" name="udp_53" value="53" /> DNS (53) </label>
   </p>
+
   <p class="block2">By default, all inbound traffic is blocked. Thus, select the services your want the outside world to have access to on your host.</p>
+
+  <p><b>Custom TCP port(s) </b></p>
+  <p class="block">
+  <label>
+  <input type="text" name="start_port" />
+  Start Port</label>
+  <label>
+  <input type="text" name="end_port" />
+  End Port (Optional)</label>
+  </p>
+  <p class="block2">Enter a custom TCP port - or port range between 1 - 65535.</p>
+
   <p><b>Accept Inbound ICMP Messages </b></p>
   <p class="block">
     <label>
