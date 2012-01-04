@@ -44,7 +44,7 @@ function generateIPTables() {
 
 	cidr = document.form.elements["network"].value;
 
-    // Loopback and outbound state rules
+	// Loopback and outbound state rules
 	evaluateCheckbox("loopback", "-A " + input + " -i lo -j ACCEPT");
 	evaluateCheckbox("outgoing", "-I " + output + " 1 -m state --state RELATED,ESTABLISHED -j ACCEPT");
 	evaluateCheckbox("outgoing", "-A " + output + " -p udp --dport 53 -m state --state NEW -j ACCEPT");
