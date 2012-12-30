@@ -6,9 +6,9 @@
  */
 
 function generateIPTables() {
-	function setDefaultPolicy(chain) {
+	function setDefaultPolicy(chain, policy) {
 		rulesetId.appendChild(document.createElement("p"));
-		rulesetId.appendChild(document.createTextNode("-P " + chain + " DROP"));
+		rulesetId.appendChild(document.createTextNode("-P " + chain + " " + policy));
 	}
 
 	function getRulesetId() {
@@ -38,9 +38,14 @@ function generateIPTables() {
 	rulesetId.innerHTML="";
 
 	// Set default Policies (DROP)
-	setDefaultPolicy(input);
-	setDefaultPolicy(output);
-	setDefaultPolicy(forward);
+	setDefaultPolicy(input, "DROP");
+        if (document.form.elements["outgoing"].checked) {
+	    setDefaultPolicy(output, "DROP");
+        }
+        else {
+            setDefaultPolicy(output, "ACCEPT");
+        }
+	setDefaultPolicy(forward, "DROP");
 
 	cidr = document.form.elements["network"].value;
 
